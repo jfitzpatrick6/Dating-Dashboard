@@ -19,7 +19,7 @@ class User(AbstractUser):
     pass
 
 class Relationship(models.Model):
-    start_date = models.DateField()
+    start_date = models.DateTimeField()
     dates = models.ManyToManyField(Date, related_name='relationships')
     users = models.ManyToManyField(User, related_name='relationships')
 

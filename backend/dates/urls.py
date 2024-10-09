@@ -8,7 +8,5 @@ router.register(r'dates', DateViewSet)
 router.register(r'relationships', RelationshipViewSet)
 
 urlpatterns = [
-    path('api/', include(router.urls)),
-    path('auth/', include('djoser.urls')),
-    path('auth/', include('djoser.urls.authtoken')),
+    path('', include(router.urls)),
 ]
