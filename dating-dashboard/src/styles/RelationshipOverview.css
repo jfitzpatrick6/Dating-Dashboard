@@ -1,0 +1,76 @@
+/* src/styles/RelationshipOverview.css */
+.relationship-overview {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.relationship-overview h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+    font-family: 'Helvetica Neue', sans-serif;
+}
+
+.time-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.time-box {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: white;
+    font-size: 1.5rem;
+    font-family: 'Helvetica Neue', sans-serif;
+    transition: transform 0.2s ease;
+}
+
+.time-box:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Darker shadow on hover */
+}
+
+.time-box p {
+    margin: 0;
+}
+
+.time-box span {
+    font-size: 1rem;
+    color: #fff;
+    opacity: 0.9;
+}
+
+/* Unified gray colors for each time unit */
+.seconds {
+    background-color: #EAEAEA; /* Light Gray */
+}
+
+.minutes {
+    background-color: #B0B0B0; /* Medium Gray */
+}
+
+.hours {
+    background-color: #808080; /* Dark Gray */
+}
+
+.days {
+    background-color: #404040; /* Darker Gray */
+}
+
+.months {
+    background-color: #302f2f; /* Darker Gray */
+}
+
+.years {
+    background-color: #222222; /* Almost Black */
+}

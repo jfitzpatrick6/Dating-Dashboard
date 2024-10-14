@@ -21,7 +21,6 @@ class User(AbstractUser):
 class Relationship(models.Model):
     start_date = models.DateTimeField()
     dates = models.ManyToManyField(Date, related_name='relationships')
-    users = models.ManyToManyField(User, related_name='relationships')
 
     def __str__(self):
         return f"Relationship starting on {self.start_date}"

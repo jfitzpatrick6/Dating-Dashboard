@@ -1,0 +1,37 @@
+/* src/components/Calendar.css */
+.calendar-container {
+    background-color: #f9f9f9; /* Light background */
+    border: 1px solid #ddd; /* Border for the calendar */
+    border-radius: 8px; /* Rounded corners */
+    padding: 16px; /* Padding for inner spacing */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+    
+}
+
+.react-calendar__month-view__days__day {
+    color: white; /* White text for dates */
+}
+
+.highlighted-date {
+    background-color: #274728; /* Primary highlight color (e.g., green) */
+    color: white; /* White text on highlighted dates */
+    border-radius: 50%; /* Circular highlight */
+}
+
+
+.react-calendar {
+    border: none; /* Remove default border */
+}
+
+.react-calendar__tile {
+    padding: 10px; /* Ensure padding for clickable areas */
+}
+
+.react-calendar__tile--active {
+    background-color: #2196f3; /* Active date color (blue) */
+    color: white; /* White text on active date */
+}
+
+.react-calendar__tile--active:focus {
+    outline: none; /* Remove focus outline */
+}

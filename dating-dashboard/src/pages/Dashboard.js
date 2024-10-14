@@ -1,27 +1,24 @@
 // src/pages/Dashboard.js
 import React, { useEffect, useState } from 'react';
 import RelationshipOverview from '../components/RelationshipOverview.js';
-import DateCard from '../components/DateCard';
+import DateSelector from '../components/Calendar'; // Import the Calendar component
+import DateDetail from '../components/DateDetail'; // Import DateDetail
 import '../styles/Dashboard.css';
 
 const Dashboard = () => {
     const [dates, setDates] = useState([]);
     const [relationship, setRelationship] = useState(null);
-    const [startDate, setStartDate] = useState('');
-    const [error, setError] = useState('');
+    const [selectedDate, setSelectedDate] = useState(null); // State to hold selected date
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const relationshipResponse = await fetch('http://localhost:8000/api/relationships/1');  // example endpoint
-                if (relationshipResponse.ok) {
-                    const relationshipData = await relationshipResponse.json();
-                    setRelationship(relationshipData);
-                }
-
-                const datesResponse = await fetch('http://localhost:8000/api/dates/');
+                const relationshipResponse = await fetch('http://localhost:8000/api/relationships/3/');
+                const relationshipData = await relationshipResponse.json();
+                setRelationship(relationshipData);
+                const datesResponse = await fetch('http://localhost:8000/api/relationships/3/dates/');
                 const datesData = await datesResponse.json();
-                setDates(datesData);
+                setDates(datesData.dates);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -29,59 +26,60 @@ const Dashboard = () => {
         fetchData();
     }, []);
 
-    const handleCreateRelationship = async (e) => {
-        e.preventDefault();
-        if (!startDate) {
-            setError('Start date is required');
-            return;
-        }
+    const handleDateClick = (date) => {
+        setSelectedDate(date);
+    };
 
+    const closeDateDetail = () => {
+        setSelectedDate(null);
+    };
+
+    const getSelectedDateObject = () => {
+        if (!selectedDate) return null;
+        return dates.find((dateObj) => {
+            const dateObjDate = new Date(dateObj.date);
+            const isMatch = dateObjDate.toDateString() === new Date(selectedDate).toDateString();
+            return isMatch;
+        });
+    };
+
+    const handleCreateDate = async (newDate) => {
         try {
-            const response = await fetch('http://localhost:8000/api/relationships/', {
+            const response = await fetch('http://localhost:8000/api/relationships/3/dates/create/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ start_date: startDate }),
+                body: JSON.stringify(newDate),
             });
 
             if (response.ok) {
-                const newRelationship = await response.json();
-                setRelationship(newRelationship);
-                setStartDate('');  // Clear input after successful submission
-                setError('');
+                const createdDate = await response.json();
+                setDates((prevDates) => [...prevDates, createdDate]);
+                closeDateDetail();
             } else {
-                const data = await response.json();
-                setError(data.detail || 'Something went wrong while creating the relationship.');
+                console.error('Failed to create date');
             }
         } catch (error) {
-            setError('An error occurred. Please try again later.');
+            console.error('Error creating date:', error);
         }
     };
-
     return (
         <div className="dashboard">
-            {relationship ? (
-                <RelationshipOverview relationship={relationship} />
-            ) : (
-                <form onSubmit={handleCreateRelationship}>
-                <h2>Create a Relationship</h2>
-                <input
-                    type="datetime-local"
-                    value={startDate} 
-                    onChange={(e) => setStartDate(e.target.value)}
-                    required
-                />
-                <button type="submit">Create Relationship</button>
-                {error && <p className="error">{error}</p>}
-            </form>
-            )}
+            {relationship && <RelationshipOverview relationship={relationship} />}
             <h2>Our Dates</h2>
-            <div className="dates-list">
-                {dates.map((date) => (
-                    <DateCard key={date.id} date={date} />
-                ))}
+            <div style={{ display: 'flex', alignItems: 'flex-start' }}>
+            <DateSelector dates={dates} onDateClick={handleDateClick} />
+            {selectedDate && (
+                <DateDetail 
+                    date={selectedDate} 
+                    onClose={closeDateDetail} 
+                    onCreate={handleCreateDate}
+                    dateObject={getSelectedDateObject()}
+                />
+            )}
             </div>
+            
         </div>
     );
 };
