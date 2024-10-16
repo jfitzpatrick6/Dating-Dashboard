@@ -6,7 +6,7 @@ const DateDetail = ({ date, onClose, onCreate, dateObject }) => {
     const [newTitle, setNewTitle] = useState('');
     const [newDescription, setNewDescription] = useState('');
     const [newImages, setNewImages] = useState([]);
-    const [selectedDate, setSelectedDate] = useState(''); // State for the selected date
+    const [selectedDate, setSelectedDate] = useState('');
     
     const settings = {
         dots: true,
@@ -21,8 +21,9 @@ const DateDetail = ({ date, onClose, onCreate, dateObject }) => {
             title: newTitle,
             description: newDescription,
             images: newImages,
-            date: selectedDate, // Include the selected date
+            date: selectedDate,
         };
+        console.log(newDate)
         onCreate(newDate);
         resetForm();
     };
@@ -31,18 +32,20 @@ const DateDetail = ({ date, onClose, onCreate, dateObject }) => {
         setNewTitle('');
         setNewDescription('');
         setNewImages([]);
-        setSelectedDate(''); // Reset the selected date
+        setSelectedDate('');
     };
 
-    // Ensure date is in YYYY-MM-DD format
     const formatDateForInput = (date) => {
-        if (!date) return '';  // Handle empty or undefined date
-        if (typeof date === 'string') return date;  // If date is already a string
-        // If date is a Date object, format it to YYYY-MM-DD
+        if (!date) return '';
+        if (typeof date === 'string') return date;
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, '0');
         const day = String(date.getDate()).padStart(2, '0');
         return `${year}-${month}-${day}`;
+    };
+
+    const handleFileChange = (e) => {
+        setNewImages([...e.target.files]);
     };
 
     console.log(dateObject);
@@ -79,15 +82,14 @@ const DateDetail = ({ date, onClose, onCreate, dateObject }) => {
                         onChange={(e) => setNewDescription(e.target.value)}
                     ></textarea>
                     <input
-                        type="text"
-                        placeholder="Image URLs (comma separated)"
-                        value={newImages.join(',')}
-                        onChange={(e) => setNewImages(e.target.value.split(','))}
+                        type="file"
+                        multiple
+                        onChange={handleFileChange}
                     />
                     <input
                         type="date"
-                        value={formatDateForInput(selectedDate)}  // Use the selected date state
-                        onChange={(e) => setSelectedDate(e.target.value)} // Update the selected date state
+                        value={formatDateForInput(selectedDate)}
+                        onChange={(e) => setSelectedDate(e.target.value)}
                     />
                     <button onClick={handleCreate}>Create Date</button>
                 </div>

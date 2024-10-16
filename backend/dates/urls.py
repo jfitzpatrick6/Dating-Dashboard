@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import UserViewSet, DateViewSet, RelationshipViewSet, get_dates_for_relationship, create_date_for_relationship
+from .views import DateViewSet, RelationshipViewSet, get_dates_for_relationship, create_date_for_relationship
 
 
 router = DefaultRouter()

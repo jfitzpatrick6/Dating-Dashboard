@@ -1,22 +1,22 @@
 // src/pages/Dashboard.js
 import React, { useEffect, useState } from 'react';
 import RelationshipOverview from '../components/RelationshipOverview.js';
-import DateSelector from '../components/Calendar'; // Import the Calendar component
-import DateDetail from '../components/DateDetail'; // Import DateDetail
+import DateSelector from '../components/Calendar';
+import DateDetail from '../components/DateDetail';
 import '../styles/Dashboard.css';
 
 const Dashboard = () => {
     const [dates, setDates] = useState([]);
     const [relationship, setRelationship] = useState(null);
-    const [selectedDate, setSelectedDate] = useState(null); // State to hold selected date
+    const [selectedDate, setSelectedDate] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const relationshipResponse = await fetch('http://localhost:8000/api/relationships/3/');
+                const relationshipResponse = await fetch('http://localhost:8000/api/relationships/1/');
                 const relationshipData = await relationshipResponse.json();
                 setRelationship(relationshipData);
-                const datesResponse = await fetch('http://localhost:8000/api/relationships/3/dates/');
+                const datesResponse = await fetch('http://localhost:8000/api/relationships/1/dates/');
                 const datesData = await datesResponse.json();
                 setDates(datesData.dates);
             } catch (error) {
@@ -45,7 +45,7 @@ const Dashboard = () => {
 
     const handleCreateDate = async (newDate) => {
         try {
-            const response = await fetch('http://localhost:8000/api/relationships/3/dates/create/', {
+            const response = await fetch('http://localhost:8000/api/relationships/1/dates/create/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -79,7 +79,6 @@ const Dashboard = () => {
                 />
             )}
             </div>
-            
         </div>
     );
 };
