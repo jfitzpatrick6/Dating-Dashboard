@@ -1,6 +1,6 @@
 from django.http import JsonResponse
 from rest_framework import viewsets
-from .models import Date, Relationship
+from .models import Date, Relationship, DateImage
 from .serializers import DateSerializer, RelationshipSerializer
 from django.shortcuts import get_object_or_404
 import json
@@ -18,33 +18,47 @@ class RelationshipViewSet(viewsets.ModelViewSet):
 @api_view(['GET'])
 def get_dates_for_relationship(request, relationship_id):
     relationship = get_object_or_404(Relationship, id=relationship_id)
-    dates = relationship.dates.all()
-    return JsonResponse({'dates': list(dates.values('id', 'title', 'description', 'date'))})
+    dates = relationship.dates.prefetch_related('images').all()
+
+    response_data = []
+    for date in dates:
+        response_data.append({
+            'id': date.id,
+            'title': date.title,
+            'description': date.description,
+            'date': date.date,
+            'images': [image.image.url for image in date.images.all()]  # Fetch the URLs of associated images
+        })
+
+    return JsonResponse({'dates': response_data})
 
 @csrf_exempt
 def create_date_for_relationship(request, relationship_id):
     if request.method == 'POST':
         relationship = get_object_or_404(Relationship, id=relationship_id)
-        data = json.loads(request.body)
+        print(request.FILES)
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        date = request.POST.get('date')
         new_date = Date.objects.create(
-            title=data.get('title'),
-            description=data.get('description'),
-            date=data.get('date')
+            title=title,
+            description=description,
+            date=date
         )
-        
         if 'images' in request.FILES:
             images = request.FILES.getlist('images')
             for image in images:
-                new_date.images.save(image.name, image)
+                # Save each image related to the date
+                DateImage.objects.create(date=new_date, image=image)
 
         relationship.dates.add(new_date)
         relationship.save()
+
         return JsonResponse({
             'id': new_date.id,
             'title': new_date.title,
             'description': new_date.description,
             'date': new_date.date,
-            'images': [image.url for image in new_date.images.all()] if new_date.images else None,
         })
     else:
         return JsonResponse({'error': 'Invalid method'}, status=405)

@@ -20,11 +20,9 @@ const DateDetail = ({ date, onClose, onCreate, dateObject }) => {
         const newDate = {
             title: newTitle,
             description: newDescription,
-            images: newImages,
             date: selectedDate,
         };
-        console.log(newDate)
-        onCreate(newDate);
+        onCreate(newDate, newImages);
         resetForm();
     };
 
@@ -47,19 +45,17 @@ const DateDetail = ({ date, onClose, onCreate, dateObject }) => {
     const handleFileChange = (e) => {
         setNewImages([...e.target.files]);
     };
-
-    console.log(dateObject);
     
     return (
         <div className="date-detail">
             {dateObject ? (
                 <>
                     <button className="close-button" onClick={onClose}>✖</button>
-                    {date.images && date.images.length > 0 && (
+                    {dateObject.images && dateObject.images.length > 0 && (
                         <Slider {...settings}>
-                            {date.images.map((image, index) => (
+                            {dateObject.images.map((image, index) => (
                                 <div key={index} className="carousel-image">
-                                    <img src={image} alt={`Date image ${index + 1}`} />
+                                    <img src={'http://localhost:8000/' + image} alt={`Date image ${index + 1}`} />
                                 </div>
                             ))}
                         </Slider>

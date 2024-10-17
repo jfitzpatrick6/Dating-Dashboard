@@ -43,16 +43,22 @@ const Dashboard = () => {
         });
     };
 
-    const handleCreateDate = async (newDate) => {
+    const handleCreateDate = async (newDate, images) => {
         try {
+            const formData = new FormData();
+            formData.append('title', newDate.title);
+            formData.append('description', newDate.description);
+            formData.append('date', newDate.date);
+    
+            images.forEach((image, index) => {
+                formData.append(`images`, image);
+            });
+    
             const response = await fetch('http://localhost:8000/api/relationships/1/dates/create/', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(newDate),
+                body: formData,
             });
-
+    
             if (response.ok) {
                 const createdDate = await response.json();
                 setDates((prevDates) => [...prevDates, createdDate]);
@@ -64,6 +70,7 @@ const Dashboard = () => {
             console.error('Error creating date:', error);
         }
     };
+
     return (
         <div className="dashboard">
             {relationship && <RelationshipOverview relationship={relationship} />}
