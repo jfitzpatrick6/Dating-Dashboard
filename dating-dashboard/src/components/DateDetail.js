@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect  } from 'react';
 import Slider from 'react-slick';
 import '../styles/DateDetail.css'; // Custom styles
 
@@ -35,12 +35,24 @@ const DateDetail = ({ date, onClose, onCreate, dateObject }) => {
 
     const formatDateForInput = (date) => {
         if (!date) return '';
-        if (typeof date === 'string') return date;
+        if (typeof date === 'object' && date instanceof Date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, '0');
         const day = String(date.getDate()).padStart(2, '0');
         return `${year}-${month}-${day}`;
     };
+
+    useEffect(() => {
+        if (date) {
+            const formattedDate = formatDateForInput(date);
+            setSelectedDate(formattedDate);
+        }
+    }, [date]);
 
     const handleFileChange = (e) => {
         setNewImages([...e.target.files]);
@@ -48,9 +60,10 @@ const DateDetail = ({ date, onClose, onCreate, dateObject }) => {
     
     return (
         <div className="date-detail">
+            <button className="close-button" onClick={onClose}>✖</button>
             {dateObject ? (
                 <>
-                    <button className="close-button" onClick={onClose}>✖</button>
+                    
                     {dateObject.images && dateObject.images.length > 0 && (
                         <Slider {...settings}>
                             {dateObject.images.map((image, index) => (
@@ -84,7 +97,7 @@ const DateDetail = ({ date, onClose, onCreate, dateObject }) => {
                     />
                     <input
                         type="date"
-                        value={formatDateForInput(selectedDate)}
+                        value={formatDateForInput(date)}
                         onChange={(e) => setSelectedDate(e.target.value)}
                     />
                     <button onClick={handleCreate}>Create Date</button>

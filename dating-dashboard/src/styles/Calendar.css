@@ -21,6 +21,7 @@
 
 .react-calendar {
     border: none; /* Remove default border */
+    border-radius: 8px;
 }
 
 .react-calendar__tile {

@@ -36,9 +36,15 @@ const Dashboard = () => {
 
     const getSelectedDateObject = () => {
         if (!selectedDate) return null;
+        
         return dates.find((dateObj) => {
             const dateObjDate = new Date(dateObj.date);
-            const isMatch = dateObjDate.toDateString() === new Date(selectedDate).toDateString();
+            const selectedDateObj = new Date(selectedDate);
+            const isMatch = 
+                dateObjDate.getFullYear() === selectedDateObj.getFullYear() &&
+                dateObjDate.getMonth() === selectedDateObj.getMonth() &&
+                dateObjDate.getDate() === selectedDateObj.getDate();
+            
             return isMatch;
         });
     };
@@ -75,7 +81,7 @@ const Dashboard = () => {
         <div className="dashboard">
             {relationship && <RelationshipOverview relationship={relationship} />}
             <h2>Our Dates</h2>
-            <div style={{ display: 'flex', alignItems: 'flex-start' }}>
+            <div style={{ display: 'flex', alignItems: 'flex-start', backgroundColor:'#f9f9f9', borderRadius: "3%"}}>
             <DateSelector dates={dates} onDateClick={handleDateClick} />
             {selectedDate && (
                 <DateDetail 

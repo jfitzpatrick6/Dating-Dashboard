@@ -1,0 +1,60 @@
+/* src/styles/Dashboard.css */
+
+.dashboard {
+    background-color: #f8f9fa; /* Light background for a clean look */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items horizontally */
+    min-height: 100vh; /* Ensure it takes full height */
+}
+
+h2 {
+    font-size: 2rem; /* Increased font size for headings */
+    margin: 20px 0; /* Margin to create space around the heading */
+    color: #333; /* Dark text color for contrast */
+}
+
+/* Container for DateSelector and DateDetail */
+.date-container {
+    display: flex;
+    flex-direction: row; /* Align items side by side */
+    justify-content: center; /* Center horizontally */
+    width: 100%; /* Full width of the parent */
+    max-width: 1200px; /* Limit width for larger screens */
+    gap: 20px; /* Space between components */
+}
+
+/* Style for DateSelector */
+.date-selector {
+    flex: 1; /* Allow it to grow */
+    min-width: 300px; /* Minimum width for DateSelector */
+}
+
+/* Style for DateDetail */
+.date-detail {
+    flex: 2; /* Give more space to DateDetail */
+    min-width: 400px; /* Minimum width for DateDetail */
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .date-container {
+        flex-direction: column; /* Stack components vertically */
+        align-items: stretch; /* Stretch to full width */
+        gap: 15px; /* Reduce space between components */
+    }
+
+    .date-selector,
+    .date-detail {
+        min-width: 100%; /* Allow full width on mobile */
+    }
+
+    h2 {
+        font-size: 1.5rem; /* Reduce font size for smaller screens */
+    }
+
+    .dashboard {
+        padding: 15px; /* Reduce padding on smaller screens */
+    }
+}
