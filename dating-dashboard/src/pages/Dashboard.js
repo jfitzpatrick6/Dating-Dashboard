@@ -13,10 +13,10 @@ const Dashboard = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const relationshipResponse = await fetch('http://localhost:8000/api/relationships/1/');
+                const relationshipResponse = await fetch('http://localhost:8000/api/relationships/3/');
                 const relationshipData = await relationshipResponse.json();
                 setRelationship(relationshipData);
-                const datesResponse = await fetch('http://localhost:8000/api/relationships/1/dates/');
+                const datesResponse = await fetch('http://localhost:8000/api/relationships/3/dates/');
                 const datesData = await datesResponse.json();
                 setDates(datesData.dates);
             } catch (error) {
@@ -60,7 +60,7 @@ const Dashboard = () => {
                 formData.append(`images`, image);
             });
     
-            const response = await fetch('http://localhost:8000/api/relationships/1/dates/create/', {
+            const response = await fetch('http://localhost:8000/api/relationships/3/dates/create/', {
                 method: 'POST',
                 body: formData,
             });

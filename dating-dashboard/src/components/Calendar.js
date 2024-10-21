@@ -6,8 +6,11 @@ import '../styles/Calendar.css'; // Import the custom styles
 
 const DateSelector = ({ dates, onDateClick }) => {
     const tileClassName = ({ date }) => {
-        const highlightDates = new Set(dates.map(dateObj => new Date(dateObj.date).toDateString()));
-        return highlightDates.has(date.toDateString()) ? 'highlighted-date' : null;
+        const currentDateString = date.toISOString().split('T')[0];
+        const highlightDates = new Set(
+            dates.map(dateObj => dateObj.date)
+        );
+        return highlightDates.has(currentDateString) ? 'highlighted-date' : null;
     };
 
     return (
