@@ -7,6 +7,8 @@ const DateDetail = ({ date, onClose, onCreate, dateObject }) => {
     const [newDescription, setNewDescription] = useState('');
     const [newImages, setNewImages] = useState([]);
     const [selectedDate, setSelectedDate] = useState('');
+
+    const API_BASE_URL = process.env.REACT_APP_API_URL;
     
     const settings = {
         dots: true,
@@ -57,52 +59,55 @@ const DateDetail = ({ date, onClose, onCreate, dateObject }) => {
     const handleFileChange = (e) => {
         setNewImages([...e.target.files]);
     };
+
+    console.log(dateObject)
     
     return (
-        <div className="date-detail">
-            <button className="close-button" onClick={onClose}>✖</button>
-            {dateObject ? (
-                <>
-                    
-                    {dateObject.images && dateObject.images.length > 0 && (
-                        <Slider {...settings}>
-                            {dateObject.images.map((image, index) => (
-                                <div key={index} className="carousel-image">
-                                    <img src={'http://localhost:8000/' + image} alt={`Date image ${index + 1}`} />
-                                </div>
-                            ))}
-                        </Slider>
-                    )}
-                    <h3>{dateObject.title}</h3>
-                    <p>{dateObject.description}</p>
-                </>
-            ) : (
-                <div className="create-date">
-                    <h4>Create a new date:</h4>
-                    <input
-                        type="text"
-                        placeholder="Title"
-                        value={newTitle}
-                        onChange={(e) => setNewTitle(e.target.value)}
-                    />
-                    <textarea
-                        placeholder="Description"
-                        value={newDescription}
-                        onChange={(e) => setNewDescription(e.target.value)}
-                    ></textarea>
-                    <input
-                        type="file"
-                        multiple
-                        onChange={handleFileChange}
-                    />
-                    <input
-                        type="date"
-                        value={formatDateForInput(date)}
-                        onChange={(e) => setSelectedDate(e.target.value)}
-                    />
-                    <button onClick={handleCreate}>Create Date</button>
-                </div>
-            )}
+        <div className="calendar-container">
+            <div className="date-detail">
+                <button className="close-button" onClick={onClose}>✖</button>
+                {dateObject ? (
+                    <>
+                        {dateObject.images && dateObject.images.length > 0 && (
+                            <Slider {...settings}>
+                                {dateObject.images.map((image, index) => (
+                                    <div key={index} className="carousel-image">
+                                        <img src={API_BASE_URL + image} alt={`Date image ${index + 1}`} />
+                                    </div>
+                                ))}
+                            </Slider>
+                        )}
+                        <h3>{dateObject.title}</h3>
+                        <p>{dateObject.description}</p>
+                    </>
+                ) : (
+                    <div className="create-date">
+                        <h4>Create a new date:</h4>
+                        <input
+                            type="text"
+                            placeholder="Title"
+                            value={newTitle}
+                            onChange={(e) => setNewTitle(e.target.value)}
+                        />
+                        <textarea
+                            placeholder="Description"
+                            value={newDescription}
+                            onChange={(e) => setNewDescription(e.target.value)}
+                        ></textarea>
+                        <input
+                            type="file"
+                            multiple
+                            onChange={handleFileChange}
+                        />
+                        <input
+                            type="date"
+                            value={formatDateForInput(date)}
+                            onChange={(e) => setSelectedDate(e.target.value)}
+                        />
+                        <button onClick={handleCreate}>Create Date</button>
+                    </div>
+                )}
+            </div>
         </div>
     );
 };

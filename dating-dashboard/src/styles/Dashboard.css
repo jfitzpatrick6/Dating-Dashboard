@@ -1,60 +1,90 @@
-/* src/styles/Dashboard.css */
-
 .dashboard {
-    background-color: #f8f9fa; /* Light background for a clean look */
+    background-color: #f8f9fa;
     padding: 20px;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center items horizontally */
-    min-height: 100vh; /* Ensure it takes full height */
+    align-items: center;
+    min-height: 100vh;
+    width: 100%; 
+    box-sizing: border-box; 
+    overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 h2 {
-    font-size: 2rem; /* Increased font size for headings */
-    margin: 20px 0; /* Margin to create space around the heading */
-    color: #333; /* Dark text color for contrast */
+    font-size: 2rem;
+    margin: 20px 0;
+    color: #333;
+    text-align: center;
 }
 
-/* Container for DateSelector and DateDetail */
 .date-container {
     display: flex;
-    flex-direction: row; /* Align items side by side */
-    justify-content: center; /* Center horizontally */
-    width: 100%; /* Full width of the parent */
-    max-width: 1200px; /* Limit width for larger screens */
-    gap: 20px; /* Space between components */
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    max-width: 1200px;
+    gap: 20px;
+    padding: 20px;
+    box-sizing: border-box; 
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Prevent content from overflowing */
 }
 
-/* Style for DateSelector */
+/* Fix for DateSelector and DateDetail */
 .date-selector {
-    flex: 1; /* Allow it to grow */
-    min-width: 300px; /* Minimum width for DateSelector */
+    flex: 1;
+    min-width: 300px;
+    max-width: 600px;
+    height: auto; /* Ensure it grows with content */
 }
 
-/* Style for DateDetail */
 .date-detail {
-    flex: 2; /* Give more space to DateDetail */
-    min-width: 400px; /* Minimum width for DateDetail */
+    flex: 2;
+    min-width: 400px;
+    max-width: 800px;
+    height: 100%; /* Allow full height but prevent overflow */
+    overflow-y: auto; /* Scroll if content exceeds height */
+    box-sizing: border-box; /* Make sure padding is counted in width/height */
 }
 
 /* Mobile Styles */
 @media (max-width: 768px) {
     .date-container {
-        flex-direction: column; /* Stack components vertically */
-        align-items: stretch; /* Stretch to full width */
-        gap: 15px; /* Reduce space between components */
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        padding: 10px;
     }
 
     .date-selector,
     .date-detail {
-        min-width: 100%; /* Allow full width on mobile */
+        min-width: 100%;
+        max-width: 100%;
+        height: auto; /* Fix height to adapt to content */
     }
 
     h2 {
-        font-size: 1.5rem; /* Reduce font size for smaller screens */
+        font-size: 1.5rem;
     }
 
     .dashboard {
-        padding: 15px; /* Reduce padding on smaller screens */
+        padding: 10px;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+    h2 {
+        font-size: 1.2rem;
+    }
+
+    .date-container {
+        padding: 5px;
+    }
+
+    .dashboard {
+        padding: 5px;
     }
 }
