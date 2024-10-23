@@ -1,0 +1,24 @@
+services:
+  django:
+    build:
+      context: backend
+      dockerfile: dockerfile  # Make sure this matches the actual name of your Dockerfile
+    volumes:
+      - .:/app  # Mount backend code
+    ports:
+      - "7200:8000"  # Port mapping for Django
+    environment:
+      - DJANGO_SETTINGS_MODULE=backend.settings
+      - DJANGO_PORT=${DJANGO_PORT:-8000}
+      - DJANGO_DEBUG=${DJANGO_DEBUG:-True}
+      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY:-'django-insecure-)(&_n1z&rp12x)ejp@!79+sht@q#1_q%2vto@27of%05#y4nxi'}
+      - DATABASE_URL=${DATABASE_URL:-sqlite:///db.sqlite3}
+
+  react:
+    build:
+      context: dating-dashboard
+      dockerfile: Dockerfile  # Make sure this matches the actual name of your Dockerfile
+    volumes:
+      - ./dating-dashboard:/app  # Mount frontend code
+    ports:
+      - "3000:3000"  # Port mapping for React

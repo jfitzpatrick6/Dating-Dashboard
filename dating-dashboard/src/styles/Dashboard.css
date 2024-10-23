@@ -1,0 +1,90 @@
+.dashboard {
+    background-color: #f8f9fa;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%; 
+    box-sizing: border-box; 
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+h2 {
+    font-size: 2rem;
+    margin: 20px 0;
+    color: #333;
+    text-align: center;
+}
+
+.date-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    max-width: 1200px;
+    gap: 20px;
+    padding: 20px;
+    box-sizing: border-box; 
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Prevent content from overflowing */
+}
+
+/* Fix for DateSelector and DateDetail */
+.date-selector {
+    flex: 1;
+    min-width: 50%;
+    max-width: 90%;
+    height: 90%; /* Ensure it grows with content */
+}
+
+.date-detail {
+    flex: 2;
+    min-width: 50%;
+    max-width: 100%;
+    height: 90%; /* Allow full height but prevent overflow */
+    overflow-y: hidden; /* Scroll if content exceeds height */
+    box-sizing: border-box; /* Make sure padding is counted in width/height */
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .date-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        padding: 10px;
+    }
+
+    .date-selector,
+    .date-detail {
+        min-width: 100%;
+        max-width: 100%;
+        height: auto; /* Fix height to adapt to content */
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .dashboard {
+        padding: 10px;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+    h2 {
+        font-size: 1.2rem;
+    }
+
+    .date-container {
+        padding: 5px;
+    }
+
+    .dashboard {
+        padding: 5px;
+    }
+}

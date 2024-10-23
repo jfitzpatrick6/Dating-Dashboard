@@ -1,0 +1,102 @@
+.relationship-overview {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.relationship-overview h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+    font-family: 'Helvetica Neue', sans-serif;
+}
+
+.time-container {
+    display: grid; /* Change to grid layout */
+    grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+    gap: 15px; /* Space between boxes */
+    margin-top: 20px;
+}
+
+/* Unified box style */
+.time-box {
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: white;
+    font-size: 1.5rem;
+    font-family: 'Helvetica Neue', sans-serif;
+    transition: transform 0.2s ease;
+}
+
+.time-box:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Darker shadow on hover */
+}
+
+.time-box p {
+    margin: 0;
+}
+
+.time-box span {
+    font-size: 1rem;
+    color: #fff;
+    opacity: 0.9;
+}
+
+/* Unified gray colors for each time unit */
+.seconds {
+    background-color: #a7a5a5; /* Light Gray */
+}
+
+.minutes {
+    background-color: #a1a1a1; /* Medium Gray */
+}
+
+.hours {
+    background-color: #808080; /* Dark Gray */
+}
+
+.days {
+    background-color: #404040; /* Darker Gray */
+}
+
+.months {
+    background-color: #302f2f; /* Darker Gray */
+}
+
+.years {
+    background-color: #222222; /* Almost Black */
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .time-box {
+        height: 80px; /* Reduce height for smaller screens */
+        font-size: 1.2rem; /* Reduce font size */
+    }
+
+    .time-box span {
+        font-size: 0.8rem; /* Smaller label text */
+    }
+}
+
+/* Extra Small Screens */
+@media (max-width: 480px) {
+    .time-container {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns for smaller screens */
+        gap: 10px; /* Reduce gap between boxes */
+    }
+
+    .time-box {
+        height: 60px; /* Further reduce height */
+        font-size: 1rem; /* Reduce font size */
+    }
+
+    .time-box span {
+        font-size: 0.7rem; /* Further reduce label text */
+    }
+}
