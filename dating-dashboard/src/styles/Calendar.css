@@ -1,5 +1,5 @@
 .calendar-container {
-    background-color: #f9f9f9; /* Light background */
+    background-color: #000000; /* Light background */
     border: 1px solid #ddd; /* Border for the calendar */
     border-radius: 8px; /* Rounded corners */
     padding: 16px; /* Padding for inner spacing */
@@ -22,6 +22,8 @@
     width: 100%; /* Full width for the calendar */
     border: none; /* Remove default border */
     border-radius: 8px;
+    color: #ffff;
+    background: #000;
 }
 
 /* Additional styles as before... */
@@ -44,4 +46,34 @@
     .react-calendar {
         font-size: 0.9rem; /* Slightly smaller calendar text */
     }
+}
+
+.react-calendar__month-view__days__day {
+    color: white; /* White text for dates */
+}
+
+.highlighted-date {
+    background-color: #274728; /* Primary highlight color (e.g., green) */
+    color: white; /* White text on highlighted dates */
+    border-radius: 50%; /* Circular highlight */
+}
+
+.react-calendar__tile {
+    padding: 10px; /* Ensure padding for clickable areas */
+    color: #ffffff;
+}
+
+.react-calendar__tile--active {
+    background-color: #2196f3; /* Active date color (blue) */
+    color: white; /* White text on active date */
+}
+
+.react-calendar__tile--active:focus {
+    outline: none; /* Remove focus outline */
+}
+
+.react-calendar__navigation button {
+    color: #ffffff; /* Set text color for navigation buttons */
+    background: none;
+    border: none;
 }
