@@ -71,9 +71,9 @@ const Dashboard = () => {
             });
     
             if (response.ok) {
-                const createdDate = await response.json();
-                setDates((prevDates) => [...prevDates, createdDate]);
-                closeDateDetail();
+                const datesResponse = await fetch(`${API_BASE_URL}/api/relationships/3/dates/`);
+                const datesData = await datesResponse.json();
+                setDates(datesData.dates);
             } else {
                 console.error('Failed to create date');
             }
