@@ -1,0 +1,27 @@
+# Dockerfile for Django backend
+FROM python:3.10-slim
+
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+ENV DJANGO_PORT 72
+
+# Set the working directory
+WORKDIR /app
+
+# Copy requirements.txt first to leverage Docker cache
+COPY requirements.txt .
+
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the project files
+COPY . .
+
+# Expose the port the app runs on
+EXPOSE $DJANGO_PORT
+
+WORKDIR /app/backend
+
+# Start the Django development server using the environment variable for the port
+CMD ["sh", "-c", "python manage.py runserver 0.0.0.0:${DJANGO_PORT}"]

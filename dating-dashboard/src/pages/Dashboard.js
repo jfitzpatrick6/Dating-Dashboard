@@ -94,6 +94,7 @@ const Dashboard = () => {
                     backgroundColor: '#f9f9f9', 
                     borderRadius: "3%", 
                     flexWrap: 'wrap', // Allow wrapping to the next line
+                    maxWidth: '97%'
                 }}
             >
                 <div style={{ flex: '1 1 auto', minWidth: '300px' }}>

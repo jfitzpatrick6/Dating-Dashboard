@@ -35,17 +35,17 @@ h2 {
 /* Fix for DateSelector and DateDetail */
 .date-selector {
     flex: 1;
-    min-width: 300px;
-    max-width: 600px;
-    height: auto; /* Ensure it grows with content */
+    min-width: 50%;
+    max-width: 90%;
+    height: 90%; /* Ensure it grows with content */
 }
 
 .date-detail {
     flex: 2;
-    min-width: 400px;
-    max-width: 800px;
-    height: 100%; /* Allow full height but prevent overflow */
-    overflow-y: auto; /* Scroll if content exceeds height */
+    min-width: 50%;
+    max-width: 100%;
+    height: 90%; /* Allow full height but prevent overflow */
+    overflow-y: hidden; /* Scroll if content exceeds height */
     box-sizing: border-box; /* Make sure padding is counted in width/height */
 }
 
